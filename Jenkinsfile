@@ -7,11 +7,13 @@ pipeline {
                 bat "docker build -t mypythonapp ."
             }
         }
-        stage("Run") {
+        stage('Run') {
             steps {
-                echo "Run application in docker container"
-                bat "docker rm -f mycontainer||exit 0"
-                bat "docker run -d -p 5000:5000 --name mycontainer mypythonapp"
+                echo 'Run application in docker container'
+                bat '''
+                    docker rm -f mycontainer || true
+                    docker run -d -p 5000:5000 --name mycontainer mypythonapp
+                '''
             }
         }
     }
